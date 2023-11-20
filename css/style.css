@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+
+*:root{
+    --clr-base: #315ef5;
+    --clr-base1: #a3c0fffa;
+    --clr-bas-light: #ffffff;
+    --clr-title: #000000e5;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Cormorant Garamond', serif;
+    /* font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif; */
+}
+
+.container{
+
+    height: 100vh;
+    background: rgb(244,245,245);
+    background: linear-gradient(0deg, rgba(244,245,245,1) 25%, rgba(149,177,242,0.24693627450980393) 62%, rgba(49,94,245,0.2721463585434174) 85%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container-login{
+    position: relative;
+    height: 80%;
+    width:80%;
+    background-color: var(--clr-bas-light);
+    border-radius: 50px;
+    background-image: url(../img/bg_login.svg);
+    background-size: cover;
+    box-shadow: 0px 13px 17px -6px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 13px 17px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 13px 17px -6px rgba(0,0,0,0.75);
+
+}
+.cont_plane{
+    height: 100%; 
+    width: 100%;
+}
+
+.cont_plane>svg{
+    position: absolute;
+    top: 10%;
+    right: -25%;
+    width: 70%;
+    height: 70%;
+    animation-name: take-off-plane, start-plane;
+    animation-duration: 1s, 1s;
+    animation-fill-mode: both;
+    animation-direction: alternate,normal;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite,1;
+
+}
+
+#rect83, #rect83-1, #rect83-7, #rect83-9{
+    opacity: 0;
+    clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);    
+    animation: take-off 1s infinite both alternate;
+}
+
+
+
+#frm-login{
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    height: 80%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
+    animation: show-form 3s 1s both;
+    transition: all 1s ease-in-out;
+}
+#frm-login>h1{
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2.1rem;
+    color: rgba(0, 0, 0, 0.899);
+}
+
+.cont-name, .cont-email, .cont-age{
+    width: 100%;
+}
+
+
+#frm-login>div>input{
+    display: block;
+    width: 100%;
+    height: 3rem;
+    padding: 0 1rem;
+    border: none;
+    border-bottom: 2px solid var(--clr-base1);
+    transition: all .2s linear;
+    font-family: 'Roboto', sans-serif;    
+}
+
+.cont-name, .cont-email, .cont-age{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.cont-name::before, .cont-email::before, .cont-age::before{
+    position: absolute;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;    
+}
+
+.cont-name::before{
+    content: url("../img/user.svg");
+}
+.cont-email::before{
+    content: url("../img/email.svg");
+}
+
+.cont-age::before{
+    content: url("../img/age.svg");
+}
+
+
+#frm-login>div>input:hover{
+    border-bottom: 4px solid #86ac81;    
+    cursor: pointer;
+
+}
+
+#frm-login>button{
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: .8rem;
+    border: none;
+    background: var(--clr-base1);
+    color: var(--clr-bas-light);
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all .5s ease-in-out;
+}
+
+#frm-login>button:hover{
+    cursor: pointer;
+    background-color: var(--clr-base);
+    padding: .9rem;
+}
+
+#frm-login input:focus{
+    outline: none;    
+}
+
+
+.cont{
+    width: 100%;
+
+}
+.btn{
+    margin-bottom: 1rem;
+}
+
+
+@keyframes take-off {
+    to{
+        opacity: 1;
+        /* clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%); */
+    }
+    from{
+        opacity: 0;
+        /* clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); */
+    }
+}
+@keyframes take-off-plane {
+    to{
+        /* opacity: 0; */
+        transform: translateY(-.5rem) translateX(0);
+    }
+    from{
+        /* opacity: 1; */
+        transform: translateY(0) translate(-.5rem);
+    }
+}
+
+@keyframes start-plane {
+    to{
+        top: 10%;
+        right: -25%;
+
+    }
+    from{
+        top: 100%;
+        right: 100%;
+
+    }
+}
+
+@keyframes show-form {
+    to{
+        clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
+        
+    }
+    from{
+        
+        clip-path: polygon(100% 0, 0 0, 0 0, 100% 0);
+    }
+    
+}
