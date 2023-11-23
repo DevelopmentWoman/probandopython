@@ -6,17 +6,24 @@ import json
 
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
+cors = CORS(app, resources={r"/find/*": {"origins": "*"}})
+
 
 
 @app.route("/find", methods=["POST"])
 def fn_find():
-    email = request.form["email"]
+    exist=False
+    content_type = request.headers.get('Content-Type')
+    print(content_type)
+    # if content_type == 'application/json':
+    email = request.get_json()
     exist=crud.find(email)
+    
     if exist==True:
-        return "Usuario Existe"
+        return jsonify({"message":"Usuario Existe"})
     else:
-        return "Usuario no existe"
+        return jsonify({"message":"Usuario no existe"})
     
 
 @app.route("/add", methods=["POST"])
@@ -34,6 +41,14 @@ def fn_delete():
     result= crud.delete(email)
     return result
 
+
+@app.route("/update", methods=["POST"])
+def fn_update():
+    user= {"email" : request.form["email"], 
+           "nombre" : request.form["name"],
+           "age" : request.form["age"]}
+    result = crud.add(user)
+    return result
 
 
 

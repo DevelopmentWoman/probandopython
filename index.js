@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", e=>{
         if(flag==1){
             document.querySelector(".container-login").innerHTML=
             `
-            <form action="http://localhost:5000/find" method="POST" id="frm-login">
+            <form action="" method="" id="frm-login">
             <h1>CRUD FLASK</h1>
             <div class="cont-email">                
-                <input type="text" name="email" placeholder="Email">
+                <input type="text" name="email" placeholder="Email" id="findEmail">
             </div>
-            <button>Buscar</button>
+            <button id="find">Buscar</button>
             </form>`
         }else if(flag==2){
             document.querySelector(".container-login").innerHTML=
@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", e=>{
         }else if(flag==3){
             document.querySelector(".container-login").innerHTML=
             `
-            <form action="http://localhost:5000/update" method="POST" id="frm-login">
-            <h1>CRUD FLASK</h1>
+
+            <form action="" method="" id="frm-login" class="update">
             <div class="cont-email">                
                 <input type="text" name="email" placeholder="Email">
             </div>
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", e=>{
             <div class="cont-age">                
                 <input type="text" name="age" placeholder="Edad">
             </div>
-            <button>Actualizar</button>
+            <button id="updBtn">Actualizar</button>
             </form>`
         }else if(flag==4){
             document.querySelector(".container-login").innerHTML=
@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", e=>{
 
 
 document.addEventListener("click", e=>{
+    e.preventDefault()
     if (e.target==document.querySelector(".btn-add")) {
         flag=2
         window.location.href=`crud.html?flag=${flag}`
@@ -83,5 +84,36 @@ document.addEventListener("click", e=>{
     else if (e.target==document.querySelector(".btn-delete")) {
         flag=4
         window.location.href=`crud.html?flag=${flag}`
+    }else if (e.target==document.querySelector("#find")){
+        let $email = document.getElementById("findEmail").value
+        // console.log($email);
+        let email={"email":$email}
+        // console.log(email);
+        find(email)
     }
 })
+
+
+
+
+const find = async (param)=>{
+    let url = "http://localhost:5000/find"
+    let data = {param}
+    let params = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {"Content-type": "application/json;charset=UTF-8"}
+
+    }
+    try {
+        let res = await fetch(url,params)
+        let resUser = await res.json()
+        if (!res.ok) throw {status: res.status, statusText: res.statusText}
+        console.log(resUser)
+    } catch (error) {
+        let message = error.statusText || "Ocurrio un error"
+        console.log(`Error ${error.status}:${message}`);
+    }
+}
+
+
